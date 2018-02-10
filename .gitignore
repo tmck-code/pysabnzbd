@@ -1,0 +1,8 @@
+__pycache__/
+dist/
+MANIFEST
+pyxeoma.egg-info/
+
+# intellij
+.idea/
+*.iml
