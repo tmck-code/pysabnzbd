@@ -31,6 +31,68 @@ class SabnzbdApi(object):
                 "Failed to communicate with SABnzbd API.")
 
     @asyncio.coroutine
+    def pause_queue(self):
+        try:
+            api_args = {
+                'apikey': self.api_key,
+                'mode': 'pause',
+                'output': 'json'
+            }
+            url = '{}/{}'.format(self.base_url, 'api')
+            with aiohttp.ClientSession() as session:
+                resp = yield from session.get(url, params=api_args)
+                json_resp = yield from resp.json()
+                if json_resp.get('status', False):
+                    return True
+                else:
+                    return False
+        except aiohttp.ClientError:
+            raise SabnzbdApiException(
+                "Failed to communicate with SABnzbd API.")
+
+    @asyncio.coroutine
+    def resume_queue(self):
+        try:
+            api_args = {
+                'apikey': self.api_key,
+                'mode': 'resume',
+                'output': 'json'
+            }
+            url = '{}/{}'.format(self.base_url, 'api')
+            with aiohttp.ClientSession() as session:
+                resp = yield from session.get(url, params=api_args)
+                json_resp = yield from resp.json()
+                if json_resp.get('status', False):
+                    return True
+                else:
+                    return False
+        except aiohttp.ClientError:
+            raise SabnzbdApiException(
+                "Failed to communicate with SABnzbd API.")
+
+    @asyncio.coroutine
+    def set_speed_limit(self, speed=100):
+        try:
+            api_args = {
+                'apikey': self.api_key,
+                'mode': 'config',
+                'name': 'speedlimit',
+                'value': speed,
+                'output': 'json'
+            }
+            url = '{}/{}'.format(self.base_url, 'api')
+            with aiohttp.ClientSession() as session:
+                resp = yield from session.get(url, params=api_args)
+                json_resp = yield from resp.json()
+                if json_resp.get('status', False):
+                    return True
+                else:
+                    return False
+        except aiohttp.ClientError:
+            raise SabnzbdApiException(
+                "Failed to communicate with SABnzbd API.")
+
+    @asyncio.coroutine
     def check_available(self):
         try:
             api_args = {

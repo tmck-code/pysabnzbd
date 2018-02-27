@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='pysabnzbd',
     packages=['pysabnzbd'],
-    version='0.0.3',
+    version='0.0.4',
     description='Python wrapper for SABnzbd API',
     author='Jerad Meisner',
     author_email='jerad.meisner@gmail.com',
