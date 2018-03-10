@@ -15,7 +15,7 @@ class SabnzbdApi(object):
     async def call(self, params):
         api_params = {**self.default_params, **params}
         try:
-            with aiohttp.ClientSession() as session:
+            async with aiohttp.ClientSession() as session:
                 resp = await session.get(self.api_url, params=api_params)
                 data = await resp.json()
                 if data.get('status', True) is False:
